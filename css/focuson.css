@@ -49,9 +49,8 @@ header .nav li a {
 
 header .nav li a:hover {
     background: #FF7F50;
-    color: #310f22;
-    box-shadow: 0 0 0.625rem #ef1a7d;
-    /* 10px */
+    color: #4b2814;
+    box-shadow: 0 0 0.625rem #fa5c23;
 }
 
 header .action .searchBx {
