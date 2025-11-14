@@ -22,7 +22,7 @@ header {
 }
 
 header img {
-    max-width: 350px;
+    max-width: 200px;
 }
 
 header .nav {
@@ -70,7 +70,7 @@ header .action .searchBx input {
 .content {
     padding: 6.25rem 5rem 2rem 5rem;
     min-height: 100vh;
-    background: #f5f5f5;
+    background: #f7f7f7;
     box-sizing: border-box;
 }
 
@@ -187,7 +187,7 @@ footer {
 
 footer .info {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     width: 100%;
     flex-wrap: wrap;
@@ -204,10 +204,21 @@ footer .info p {
     margin: 0;
 }
 
+footer .info .copy {
+    /* flex: 1; */
+    text-align: left;
+}
+
 footer .info a {
     color: white;
     text-decoration: none;
     font-weight: 500;
+
+}
+
+footer .info .contact {
+    flex: 1;
+    text-align: center;
 }
 
 footer .info a:hover {
@@ -247,4 +258,61 @@ footer .info ul li a i {
 
 footer .info ul li:hover a i {
     color: #4cacec;
+}
+
+/* MEDIA QUERIES PARA RESPONSIVE */
+
+/* Tablets */
+@media (max-width: 768px) {
+    header {
+        padding: 0.5rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    header img {
+        max-width: 150px;
+    }
+
+    header .nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+
+    header .nav li {
+        margin: 0 0.25rem;
+    }
+
+    header .nav li a {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    header .action .searchBx input {
+        width: 120px;
+    }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+    header {
+        padding: 0.5rem;
+    }
+
+    header img {
+        max-width: 120px;
+    }
+
+/* Para pantallas muy grandes */
+    @media (min-width: 1200px) {
+        header {
+            padding: 0.5rem 3rem;
+        }
+
+        header img {
+            max-width: 250px;
+        }
+    }
+
 }
