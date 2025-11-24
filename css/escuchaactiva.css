@@ -13,7 +13,6 @@ header {
     left: 0;
     width: 100%;
     padding: 0.4375rem 5rem;
-    /* 7px 80px */
     background: #4cacec;
     display: flex;
     justify-content: space-between;
@@ -270,7 +269,6 @@ footer .info p {
 }
 
 footer .info .copy {
-    /* flex: 1; */
     text-align: left;
 }
 
