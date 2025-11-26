@@ -1,4 +1,6 @@
 // 1. Inicializar carrito
+import { productos } from "./productos.js";
+
 // Comprobamos si localStorage existe antes de intentar leerlo
 let carrito = [];
 
@@ -24,14 +26,10 @@ const getCart = () => {
 
 // 3. Añadir al carrito
 const addToCart = (productId) => {
-    if (typeof productsData === 'undefined') {
-        console.error("Error: No de han cargado los productos (productsData). Revisa el HTML");
-        return;
-    }
+    const productInfo = productos.find(p => p.id === productId); // Buscamos el producto en la lista importada (productos.js)
 
-    const productInfo = productsData.find(p => p.id === productId);
     if (!productInfo) {
-        console.error("Producto no encontrado");
+        console.error("Producto no encontrado con ID:", productId);
         return;
     }
 
@@ -40,7 +38,7 @@ const addToCart = (productId) => {
     if (existingItem) {
         if (existingItem.cantidad < productInfo.stock) { // CASO A: YA EXISTE EN EL CARRITO 
             existingItem.cantidad++; // Validamos Stock antes de sumar
-            console.log(`Sumado 1. Ahora tienes ${existingItem.cantidad} de ${productInfo.name}`);
+            console.log(`Sumado 1. Ahora tienes ${existingItem.cantidad} de ${productInfo.nombre}`);
         } else {
             console.warn(`No hay suficiente stock disponible. Solo quedan ${productInfo.stock} unidades.`);
             return;
@@ -48,7 +46,7 @@ const addToCart = (productId) => {
     } else { // CASO B: ES NUEVO EN EL CARRITO
         if (productInfo.stock > 0) { // Validamos que haya al menos 1 en stock
             carrito.push({ id: productId, cantidad: 1 });
-            console.log(`Producto ${productInfo.name} añadido al carrito.`);
+            console.log(`Producto ${productInfo.nombre} añadido al carrito.`);
         } else {
             console.warn("El producto está agotado.");
 
@@ -62,13 +60,17 @@ const addToCart = (productId) => {
 // 4. Actualizar cantidad en el carrito
 const updateQuantity = (productId, newQuantity) => {
     const existingItem = carrito.find(item => item.id === productId);
+    const productInfo = productos.find(p => p.id === productId);
 
-    if (existingItem) {
+    if (existingItem && productInfo) {
         if (newQuantity <= 0) {
             removeFromCart(productId);
+        } else if (newQuantity > productInfo.stock) {
+            console.warn(`No puedes pedir ${newQuantity}, solo hay ${productInfo.stock}.`);
         } else {
             existingItem.cantidad = newQuantity;
             saveCart();
+            console.log(`Cantidad actualizada a ${newQuantity}.`);
         }
     }
 };
@@ -77,11 +79,12 @@ const updateQuantity = (productId, newQuantity) => {
 const removeFromCart = (productId) => {
     carrito = carrito.filter(item => item.id !== productId);
     saveCart();
+    console.log(`Producto ${productId} eliminado.`);
 };
 
 // 6. Calcular Total
-const calculateTotal = (productsData) => {
-    const productMap = new Map(productsData.map(p => [p.id, p.price]));
+const calculateTotal = () => {
+    const productMap = new Map(productos.map(p => [p.id, p.precio]));
     let total = 0;
 
     for (const item of carrito) {
@@ -97,32 +100,11 @@ const calculateTotal = (productsData) => {
 
 // --- ZONA DE PRUEBAS ---
 
-console.log("--- Inicio de Pruebas ---");
-
-const testProducts = [
-    { id: 101, name: "Camiseta", price: 15.00, stock: 10 }, // Tiene stock
-    { id: 202, name: "Pantalón", price: 40.00, stock: 2 }   // Tiene poco stock
-];
-
-productsData = testProducts;
-
-
-console.log("1. Intentando añadir Camiseta (stock 10)...");
-addToCart(101);
-addToCart(101);
-console.log("Carrito:", getCart());
-
-
-console.log("2. Intentando añadir Pantalón (stock 2)...");
-addToCart(202);
-addToCart(202);
-addToCart(202);
-console.log("Carrito:", getCart());
-
-
-console.log("3. Probando updateQuantity a 5...");
-
-updateQuantity(101, 5);
-console.log("Carrito tras update:", getCart());
-
-console.log("Total a pagar:", calculateTotal(testProducts));
+if (typeof window !== 'undefined') {
+    window.addToCart = addToCart;
+    window.removeFromCart = removeFromCart;
+    window.updateQuantity = updateQuantity;
+    window.getCart = getCart;
+    window.calculateTotal = calculateTotal;
+    window.clearCart = () => { carrito = []; saveCart(); console.log("Carrito vaciado"); };
+}
