@@ -20,6 +20,10 @@ subtitulo.textContent = matchDucktor.subtitulo;
 const descripcion = document.getElementById("descripcion-pato");
 descripcion.textContent = matchDucktor.descripcion;
 
+const frase = document.getElementById("frase-pato");
+frase.innerHTML = `<b>${matchDucktor.frase}</b>`;
+frase.style.color = matchDucktor.color;
+
 const ulCaracteristicas = document.getElementById("lista-caracteristicas");
 ulCaracteristicas.innerHTML = "";
 matchDucktor.caracteristicas.forEach((caracteristica) => {
