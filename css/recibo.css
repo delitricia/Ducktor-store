@@ -1,177 +1,186 @@
 /* BODY */
-
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* HEADER */
+/* Header */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     padding: 0.4375rem 5rem;
-    background: #4cacec;
+    background: #4CACEC;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
     transition: 0.5s;
 }
-
 header img {
-    max-width: 200px;
+    max-width: 350px;
 }
-
 header .nav {
     display: flex;
     align-items: center;
 }
-
 header .nav li {
     list-style: none;
     margin: 0.625rem;
 }
-
 header .nav li a {
     color: white;
     text-decoration: none;
     padding: 0.625rem 1.25rem;
     border-radius: 0.3125rem;
 }
-
 header .nav li a:hover {
-    background: #FF7F50;
-    color: #4b2814;
+    background: #e8bf2e;
+    color: #0c2f44;
     box-shadow: 0 0 0.625rem #fa5c23;
 }
 
 header .action .searchBx {
     padding: 0.3125rem;
     margin: 0.3125rem;
-    background: white;
+    background: #F7F7F7;
     border-radius: 0.3125rem;
     display: flex;
     align-items: center;
 }
-
 header .action .searchBx i {
     font-size: 1.4rem;
     margin: 0.3125rem;
-    color: #310f22;
+    color: #310F22;
 }
-
 header .action .searchBx input {
     outline: none;
     border: none;
     font-size: 1rem;
-    color: #310f22;
+    color: #310F22;
 }
 
 
-/* ESTILOS DEL CATÁLOGO  */
+/* Main */
 
-.content {
-    padding: 6.25rem 5rem 2rem 5rem;
+.checkout-container {
     min-height: 100vh;
-    background: #f7f7f7;
-    box-sizing: border-box;
-}
-
-.catalog-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-}
-
-.catalog-header h1 {
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 0.5rem;
-}
-
-.catalog-header p {
-    font-size: 1.1rem;
-    color: #666;
-}
-
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* tres cards en cada linia */
-    gap: 1.5rem;
-}
-
-.card {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    /* Para que la imagen no se salga */
     display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f7f7f7;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
-}
-
-.card img {
+.recibo {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     width: 100%;
-    height: 220px;
-    object-fit: cover;
-    display: block;
+    max-width: 700px;
+    text-align: center;
 }
 
-.card-content {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.card-content h3 {
-    font-size: 1.3rem;
-    color: #333;
-    margin-bottom: 0.5rem;
-}
-
-.card-content p {
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.5;
-    flex-grow: 1;
+.receipt-header .icon-success {
+    font-size: 4rem;
+    color: #28a745;
     margin-bottom: 1rem;
 }
 
-.card-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
-    border-top: 1px solid #f0f0f0;
-    padding-top: 0.75rem;
+.receipt-header h1 {
+    color: #333;
+    margin-bottom: 0.5rem;
 }
 
-.card-info .price {
-    font-size: 1.25rem;
+.receipt-header h3{
+    margin-bottom: 0.5rem;
+}
+
+.order-id {
+    background-color: #f0f8ff;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    color: #007bff;
+    margin-top: 1rem;
     font-weight: bold;
-    color: #4cacec;
 }
 
-.card-info .stock {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #555;
-    background-color: #f7f7f7;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
+.tabla-ticket {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    text-align: left;
 }
 
-/* FIN DE ESTILOS  */
+.encabezado-ticket th {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    color: #666;
+    font-weight: 600;
+    border-bottom: 2px solid #eee;
+}
+
+.lista-ticket td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    vertical-align: middle;
+}
+
+.total-ticket td {
+    padding: 1rem;
+    border-top: 2px solid #eee;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: right;
+}
+
+#precio-final {
+    color: #007bff;
+    font-size: 1.5rem;
+}
+
+.acciones-ticket {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-volver, .btn-imprimir {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-volver {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.btn-volver:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.btn-imprimir {
+    background-color: #e0e0e0; /* Gris suave */
+    color: #333;
+    border: none;
+}
+
+.btn-imprimir:hover {
+    background-color: #d0d0d0;
+}
 
 /* FOOTER */
 
@@ -206,7 +215,6 @@ footer .info p {
 }
 
 footer .info .copy {
-    /* flex: 1; */
     text-align: left;
 }
 
@@ -304,15 +312,15 @@ footer .info ul li:hover a i {
     header img {
         max-width: 120px;
     }
-/*  */
+}
 
 /* Para pantallas muy grandes */
-    @media (min-width: 1200px) {
-        header {
-            padding: 0.5rem 3rem;
-        }
-
-        header img {
-            max-width: 250px;
-        }
+@media (min-width: 1200px) {
+    header {
+        padding: 0.5rem 3rem;
     }
+
+    header img {
+        max-width: 250px;
+    }
+}
