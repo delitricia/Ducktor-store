@@ -36,42 +36,69 @@ const addToCart = (productId) => {
     const existingItem = carrito.find(item => item.id === productId);
 
     if (existingItem) {
-        if (existingItem.cantidad < productInfo.stock) { // CASO A: YA EXISTE EN EL CARRITO 
+        // CASO A: YA EXISTE EN EL CARRITO 
+        if (existingItem.cantidad < productInfo.stock) {
             existingItem.cantidad++; // Validamos Stock antes de sumar
             console.log(`Sumado 1. Ahora tienes ${existingItem.cantidad} de ${productInfo.nombre}`);
         } else {
             console.warn(`No hay suficiente stock disponible. Solo quedan ${productInfo.stock} unidades.`);
             return;
         }
-    } else { // CASO B: ES NUEVO EN EL CARRITO
+    } else {
+        // CASO B: ES NUEVO EN EL CARRITO
         if (productInfo.stock > 0) { // Validamos que haya al menos 1 en stock
             carrito.push({ id: productId, cantidad: 1 });
             console.log(`Producto ${productInfo.nombre} añadido al carrito.`);
         } else {
             console.warn("El producto está agotado.");
-
             return;
         }
     }
     saveCart(); // Guardar cambios en localStorage
+    renderCart(); // Llamar a renderCart después de modificar
 };
 
 
 // 4. Actualizar cantidad en el carrito
 const updateQuantity = (productId, newQuantity) => {
-    const existingItem = carrito.find(item => item.id === productId);
     const productInfo = productos.find(p => p.id === productId);
+    const existingItem = carrito.find(item => item.id === productId);
 
-    if (existingItem && productInfo) {
-        if (newQuantity <= 0) {
-            removeFromCart(productId);
-        } else if (newQuantity > productInfo.stock) {
-            console.warn(`No puedes pedir ${newQuantity}, solo hay ${productInfo.stock}.`);
-        } else {
-            existingItem.cantidad = newQuantity;
-            saveCart();
-            console.log(`Cantidad actualizada a ${newQuantity}.`);
-        }
+
+    if (!productInfo || !existingItem) {
+        console.error("Ítem o producto no encontrado para actualizar cantidad.");
+        return;
+    }
+
+    const quantity = parseInt(newQuantity);
+
+    if (isNaN(quantity) || quantity < 0) {
+        console.error("La cantidad debe ser un número positivo.");
+        return;
+    }
+
+    if (quantity === 0) {
+        // Lógica: Si cantidad llega a 0 -> eliminar item
+        removeFromCart(productId);
+        console.log(`Cantidad a 0: Ítem ${productId} eliminado.`);
+    } else if (quantity > productInfo.stock) {
+        console.warn(`No puedes pedir ${quantity}, solo hay ${productInfo.stock}.`);
+        //  Establecer la cantidad al máximo de stock si deseas
+        existingItem.cantidad = productInfo.stock;
+    } else {
+        existingItem.cantidad = quantity;
+        saveCart();
+        console.log(`Cantidad de ${productInfo.nombre} actualizada a ${quantity}.`);
+    }
+
+    renderCart(); // Llamar a renderCart después de modificar
+};
+
+// Función auxiliar para restar 1 unidad (útil para botones de decremento)
+const decrementQuantity = (productId) => {
+    const existingItem = carrito.find(item => item.id === productId);
+    if (existingItem) {
+        updateQuantity(productId, existingItem.cantidad - 1);
     }
 };
 
@@ -80,6 +107,7 @@ const removeFromCart = (productId) => {
     carrito = carrito.filter(item => item.id !== productId);
     saveCart();
     console.log(`Producto ${productId} eliminado.`);
+    renderCart(); // Llamar a renderCart después de modificar
 };
 
 // 6. Calcular Total
@@ -96,6 +124,50 @@ const calculateTotal = () => {
     return total;
 };
 
+// 7. Renderizar el Carrito
+const renderCart = () => {
+    console.log("--- RENDERING CART ---");
+
+    if (carrito.length === 0) {
+        console.log("El carrito está vacío.");
+        console.log("-----------------------");
+        return;
+    }
+
+    const productMap = new Map(productos.map(p => [p.id, { nombre: p.nombre, precio: p.precio }]));
+    console.log("Ítems en el Carrito:");
+
+    // Usamos .map() para procesar cada ítem y .reduce() para calcular el Subtotal Global
+    const totalGlobal = carrito.reduce((globalAcc, item) => {
+        const info = productMap.get(item.id);
+        if (info) {
+            const subtotal = info.precio * item.cantidad; // Subtotal por ítem
+            console.log(`  - ${info.nombre} (${item.id}): ${item.cantidad} x ${info.precio.toFixed(2)}€ = Subtotal: ${subtotal.toFixed(2)}€`);
+
+            return globalAcc + subtotal; // Acumular para el total global
+        }
+        return globalAcc;
+    }, 0);
+
+    console.log("-----------------------");
+    console.log(`TOTAL GLOBAL: ${totalGlobal.toFixed(2)}€`);
+    console.log("-----------------------");
+
+    // En un entorno de navegador, aquí se manipularía el DOM
+};
+
+
+
+// --- ZONA DE EXPORTACIÓN PARA NODE.JS ---
+export {
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    decrementQuantity,
+    getCart,
+    calculateTotal,
+    renderCart
+};
 
 
 // --- ZONA DE PRUEBAS ---
