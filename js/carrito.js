@@ -120,10 +120,10 @@ const decrementQuantity = (productId) => {
 
 // 5. Eliminar del carrito
 const removeFromCart = (productId) => {
+
     carrito = carrito.filter(item => item.id !== productId);
-    saveCart();
-    console.log(`Producto ${productId} eliminado.`);
-    renderCart(); // Llamar a renderCart después de modificar
+    localStorage.setItem('carrito', JSON.stringify(carrito)); 
+    renderCart();
 };
 
 // 6. Calcular Total
@@ -142,34 +142,43 @@ const calculateTotal = () => {
 
 // 7. Renderizar el Carrito
 const renderCart = () => {
-    console.log("--- RENDERING CART ---");
+    const container = document.getElementById('lista-carrito');
+    const totalDisplay = document.getElementById('total-carrito');
 
+    if (!container || !totalDisplay) return;
+    container.innerHTML = '<p class="text_payment">Tus productos</p>';
     if (carrito.length === 0) {
-        console.log("El carrito está vacío.");
-        console.log("-----------------------");
+        container.innerHTML += '<p style="text-align: center; margin-top: 1rem;">Tu carrito está vacío 🦆</p>';
+        totalDisplay.textContent = '0.00€';
         return;
     }
 
-    const productMap = new Map(productos.map(p => [p.id, { nombre: p.nombre, precio: p.precio }]));
-    console.log("Ítems en el Carrito:");
+    carrito.forEach((item) => {
+        const producto = productos.find(p => p.id === item.id);
+        if (!producto) return;
 
-    // Usamos .map() para procesar cada ítem y .reduce() para calcular el Subtotal Global
-    const totalGlobal = carrito.reduce((globalAcc, item) => {
-        const info = productMap.get(item.id);
-        if (info) {
-            const subtotal = info.precio * item.cantidad; // Subtotal por ítem
-            console.log(`  - ${info.nombre} (${item.id}): ${item.cantidad} x ${info.precio.toFixed(2)}€ = Subtotal: ${subtotal.toFixed(2)}€`);
+        const subtotal = producto.precio * item.cantidad;
 
-            return globalAcc + subtotal; // Acumular para el total global
-        }
-        return globalAcc;
-    }, 0);
+        const itemHTML = `
+            <div class="item-carrito" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #ccc;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="${producto.imagenGaleria}" alt="${producto.nombre}" width="50" style="border-radius:5px;">
+                    <div>
+                        <p style="font-weight:bold; margin:0;">${producto.nombre}</p>
+                        <p style="font-size:0.9rem; margin:0;">${item.cantidad} x ${producto.precio.toFixed(2)}€</p>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <p style="font-weight:bold; margin:0;">${subtotal.toFixed(2)}€</p>
+                    <button onclick="window.removeFromCart('${item.id}')" style="border:none; background:transparent; cursor:pointer; color:red;">🗑️</button>
+                </div>
+            </div>
+        `;
+        container.innerHTML += itemHTML;
+    });
 
-    console.log("-----------------------");
-    console.log(`TOTAL GLOBAL: ${totalGlobal.toFixed(2)}€`);
-    console.log("-----------------------");
-
-    // En un entorno de navegador, aquí se manipularía el DOM
+    const total = calculateTotal();
+    totalDisplay.textContent = `${total.toFixed(2)}€`;
 };
 
 
@@ -186,13 +195,31 @@ export {
 };
 
 
-// --- ZONA DE PRUEBAS ---
+// // --- ZONA DE PRUEBAS ---
+
+// if (typeof window !== 'undefined') {
+//     window.addToCart = addToCart;
+//     window.removeFromCart = removeFromCart;
+//     window.updateQuantity = updateQuantity;
+//     window.getCart = getCart;
+//     window.calculateTotal = calculateTotal;
+//     window.clearCart = () => { carrito = []; saveCart(); console.log("Carrito vaciado"); };
+// }
+
 
 if (typeof window !== 'undefined') {
-    window.addToCart = addToCart;
     window.removeFromCart = removeFromCart;
-    window.updateQuantity = updateQuantity;
-    window.getCart = getCart;
-    window.calculateTotal = calculateTotal;
-    window.clearCart = () => { carrito = []; saveCart(); console.log("Carrito vaciado"); };
+
+    document.addEventListener("DOMContentLoaded", renderCart);
+
+    const btnPagar = document.getElementById('btn-pagar');
+    if (btnPagar) {
+        btnPagar.addEventListener('click', () => {
+            if (carrito.length > 0) {
+                window.location.href = './recibo.html';
+            } else {
+                alert("El carrito está vacío");
+            }
+        });
+    }
 }
