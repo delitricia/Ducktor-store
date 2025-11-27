@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/recibo.css">
+    <title>Ducktor Store</title>
+    <link rel="icon" type="image" href="../img/LogoFoot.png">
+</head>
+
+<body>
+    <header>
+        <img src="../img/LogoDucktorNav.png" alt="logo" title="logo ducktor"></img>
+        <ul class="nav">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="./catalogo.html">Catálogo</a></li>
+        </ul>
+        <div class="action">
+            <div class="searchBx">
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                <input type="text" placeholder="Encuentra tu Ducktor">
+            </div>
+        </div>
+        <div class="toggleMenu" onclick="toggleMenu();"></div>
+    </header>
+
+    <main class="checkout-container">
+        <section class="recibo">
+            <div class="receipt-header">
+                <i class="fa-solid fa-circle-check icon-success"></i>
+                <h1>¡Gracias por tu compra!</h1>
+                <h3>Tu pedido ha sido procesado correctamente.</h3>
+                <p class="order-id">Nº de pedido: <strong>#DK-4815162342</strong></p>
+            </div>
+            <div class="tabla-responsive">
+                <table class="tabla-ticket">
+                    <thead class="encabezado-ticket">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="lista-ticket" id="lista-ticket">
+                    </tbody>
+                    <tfoot class="total-ticket" id="total-ticket">
+                        <tr>
+                            <td colspan="3">Total a Pagar:</td>
+                            <td id="precio-final">0.00€</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="acciones-ticket">
+                <a href="../index.html"><button class="btn-volver">Volver</button></a>
+                <button class="btn-imprimir" onclick="window.print()">Imprimir</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="info" id="footer">
+            <img src="../img/LogoFoot.png" alt="logo" title="logo patito"></img>
+            <p class="copy">Copyright &copy; 2025 All Rights Reserved</p>
+            <a class="contact" href="./contacto.html">Contacto</a>
+            <ul>
+                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+            </ul>
+        </div>
+    </footer>
+    <script type="module" src="../js/recibo.js"></script>
+</body>
+
+</html>
