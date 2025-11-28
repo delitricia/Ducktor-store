@@ -1,3 +1,7 @@
+html {
+    font-size: 14px; /* Bajamos de 16px a 14px. Todo se reduce un 12% aprox. */
+}
+
 /* BODY */
 body {
     margin: 0;
@@ -282,5 +286,10 @@ footer .info ul li:hover a i {
 
     header img {
         max-width: 250px;
+    }
+}
+@media (min-width: 1400px) {
+    html {
+        font-size: 16px;
     }
 }
