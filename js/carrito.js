@@ -26,7 +26,7 @@ const getCart = () => {
 
 // 3. Añadir al carrito
 const addToCart = (productId) => {
-    const productInfo = productos.find(p => p.id === productId); // Buscamos el producto en la lista importada (productos.js)
+    const productInfo = productos.find(p => String(p.id) === String(productId)); // Buscamos el producto en la lista importada (productos.js)
 
     if (!productInfo) {
         console.error("Producto no encontrado con ID:", productId);
