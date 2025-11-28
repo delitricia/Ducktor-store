@@ -18,7 +18,7 @@
     <header>
         <img src="../img/LogoDucktorNav.png" alt="logo" title="logo ducktor">
         <ul class="nav">
-            <!-- <li><a href="./index.html"><i class="fa-solid fa-house"></i> Inicio</a></li> -->
+            <li><a href="./index.html"><i class="fa-solid fa-house"></i> Inicio</a></li>
             <li><a href="../html/catalogo.html"><i class="fa-solid fa-store"></i> Catálogo</a></li>
             <li><a href="../html/compra.html"><i class="fa-solid fa-cart-shopping"></i> Carrito</a></li>
         </ul>
@@ -39,16 +39,16 @@
                 Porque a veces, lo único que necesitas para resolver un problema… es explicárselo a tu Ducktor.
             </p>
             <div class="details">
-                <a href="./html/catalogo.html">
-                    <button class="button_catalog">Ver catálogo</button>
+                <a href="../html/catalogo.html">
+                    <button class="button_catalog">Ver catálogo </button>
                 </a>
             </div>
             <div class="patito_del_mes">
-                <a href="./html/detalle.html">
+                <a href="./html/detalle.html?id=Fundacion">
                     <img class="pato_benefico" src="./img/CodeWell.png" alt="Imagen de patito benefico"
                         title="pato_benefico">
                 </a>
-                <a href="./html/detalle.html">
+                <a href="./html/detalle.html?id=Fundacion">
                     <button class="button_codewell">Adquiere tu Ducktor Hope</button>
                 </a>
                 <p class="benefico">
@@ -71,7 +71,14 @@
             </ul>
         </div>
     </footer>
-
+    <script type="module" src="../js/sello.js"></script>
+    <div class="sello-flotante-container">
+        <a href="../html/detalle.html?id=Fundacion" class="sello-link">
+            <img src="./img/CodeWellAnimacion.png" alt="Colabora con CodeWell" class="img-sello-float">
+            <span class="tooltip-sello">¡Colabora!</span>
+        </a>
+        <audio id="audio-pato" src="./audio/quack.mp3"></audio>
+    </div>
 </body>
 
 </html>
