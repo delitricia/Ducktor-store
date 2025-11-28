@@ -78,7 +78,7 @@ Incluye:
 ### Frontend
 - **HTML5** — Semantic structure.
 - **CSS3** — Design, animations, responsive.
-- **JavaScript ES6+** — Dynamic logi
+- **JavaScript ES6+** — Dynamic logic.
 
 ### Diseño / Productividad
 - **Figma** — Mockups.
@@ -170,7 +170,7 @@ Includes:
 ### Frontend
 - **HTML5** — Semantic structure.
 - **CSS3** — Design, animations, responsive.
-- **JavaScript ES6+** — Dynamic logi
+- **JavaScript ES6+** — Dynamic logic.
 
 ### Diseño / Productividad
 - **Figma** — Mockups.
